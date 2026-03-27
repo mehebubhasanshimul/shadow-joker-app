@@ -7,120 +7,341 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --neon: #00ffcc;
+            --neon-primary: #00ffcc;
+            --neon-secondary: #ff00ff;
+            --neon-blue: #00bfff;
             --dark: #0a0a0a;
+            --dark-secondary: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--dark);
-            color: var(--neon);
-            /* প্রফেশনাল ডার্ক গ্রিড ব্যাকগ্রাউন্ড */
-            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
-            background-size: 20px 20px;
+            color: var(--neon-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Cyber Background */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, var(--dark), var(--dark-secondary));
+        }
+
+        /* Animated Grid Background */
+        .grid-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0,255,204,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 80% 20%, rgba(255,0,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 40% 40%, rgba(0,191,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Scanning Lines */
+        .scan-lines::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,204,0.1), transparent);
+            animation: scan 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            font-size: 1.6rem;
-            font-weight: bold;
-            background: #000;
-            border-bottom: 2px solid var(--neon);
-            box-shadow: 0 0 15px var(--neon);
+            padding: 25px 20px;
+            font-size: 2rem;
+            font-weight: 900;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            animation: neonGlow 2s ease-in-out infinite alternate;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes neonGlow {
+            from { box-shadow: 0 0 20px var(--neon-primary), 0 0 40px var(--neon-primary); }
+            to { box-shadow: 0 0 30px var(--neon-secondary), 0 0 60px var(--neon-secondary); }
         }
 
         .container {
-            padding: 20px;
-            padding-bottom: 100px;
-            max-width: 500px;
+            padding: 25px 20px;
+            padding-bottom: 120px;
+            max-width: 550px;
             margin: auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* স্পেশাল মেইন টুল বাটন */
+        /* Enhanced Main Tool Button */
         .main-tool-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: linear-gradient(45deg, #000, #111);
-            border: 2px solid var(--neon);
-            color: var(--neon);
-            padding: 18px;
+            gap: 15px;
+            background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(17,17,17,0.9));
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            color: var(--neon-primary);
+            padding: 22px 25px;
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 10px var(--neon);
-            transition: 0.3s;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(15px);
+        }
+
+        .main-tool-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .main-tool-btn:hover::before {
+            left: 100%;
+        }
+
+        .main-tool-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--neon-primary);
+            box-shadow: 0 15px 35px rgba(0,255,204,0.4);
+            color: var(--neon-primary);
         }
 
         .main-tool-btn:active {
-            transform: scale(0.95);
-            background: var(--neon);
+            transform: scale(0.98);
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
             color: #000;
+            box-shadow: 0 5px 15px rgba(0,255,204,0.6);
         }
 
         .card {
-            background: rgba(0, 255, 204, 0.05);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            background: rgba(0, 255, 204, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-primary), var(--neon-secondary), var(--neon-primary), transparent);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,255,204,0.2);
+            border-color: var(--neon-primary);
         }
 
         h3 {
-            margin-top: 0;
-            font-size: 1rem;
-            border-left: 4px solid var(--neon);
-            padding-left: 10px;
+            margin: 0 0 20px 0;
+            font-size: 1.2rem;
+            border-left: 5px solid transparent;
+            background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary), var(--neon-blue));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-left: 15px;
+            font-weight: 700;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 5px var(--neon-primary)); }
+            to { filter: drop-shadow(0 0 10px var(--neon-secondary)); }
         }
 
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
         }
 
         .icon-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #000;
-            border: 1px solid var(--neon);
-            color: var(--neon);
-            padding: 15px 5px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(0,255,204,0.5);
+            color: var(--neon-primary);
+            padding: 20px 10px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0,255,204,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .icon-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .icon-btn i { 
+            font-size: 2.2rem; 
+            margin-bottom: 10px;
             transition: 0.3s;
         }
 
-        .icon-btn i { font-size: 2rem; margin-bottom: 8px; }
+        .icon-btn:hover i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px var(--neon-primary));
+        }
 
-        .icon-btn:active { background: rgba(0,255,204,0.2); }
+        .icon-btn:hover { 
+            background: rgba(0,255,204,0.15);
+            transform: translateY(-3px);
+            border-color: var(--neon-primary);
+        }
 
         input {
             width: 100%;
-            padding: 12px;
-            background: #111;
-            border: 1px solid var(--neon);
+            padding: 15px 18px;
+            background: rgba(17,17,17,0.8);
+            border: 2px solid rgba(0,255,204,0.4);
             color: #fff;
-            border-radius: 6px;
+            border-radius: 12px;
             box-sizing: border-box;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 15px rgba(0,255,204,0.3);
+            background: rgba(0,255,204,0.05);
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: #000;
-            color: var(--neon);
-            border: 1px solid var(--neon);
-            font-weight: bold;
-            border-radius: 6px;
+            padding: 15px;
+            background: linear-gradient(45deg, rgba(0,0,0,0.9), rgba(17,17,17,0.9));
+            color: var(--neon-primary);
+            border: 2px solid rgba(0,255,204,0.5);
+            font-weight: 700;
+            border-radius: 12px;
             cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-primary);
+            box-shadow: 0 10px 25px rgba(0,255,204,0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
 
         nav {
@@ -128,126 +349,83 @@
             bottom: 0;
             width: 100%;
             display: flex;
-            background: #000;
-            border-top: 2px solid var(--neon);
+            background: rgba(0,0,0,0.95);
+            border-top: 3px solid transparent;
+            backdrop-filter: blur(20px);
+            z-index: 100;
         }
 
-        nav button { flex: 1; border: none; font-size: 1.8rem; padding: 15px; border-radius: 0; }
+        nav button { 
+            flex: 1; 
+            border: none; 
+            font-size: 2rem; 
+            padding: 20px;
+            background: none;
+            color: var(--neon-primary);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary));
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        nav button:hover::after {
+            width: 70%;
+        }
+
+        nav button.active {
+            color: var(--neon-secondary);
+        }
 
         .hidden { display: none; }
-        video { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px dashed var(--neon); }
+        video { 
+            width: 100%; 
+            border-radius: 15px; 
+            margin-top: 15px; 
+            border: 2px solid rgba(0,255,204,0.5);
+            box-shadow: 0 0 20px rgba(0,255,204,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            header { font-size: 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .container { padding: 20px 15px; }
+        }
     </style>
 </head>
-<body>
-
-<header>SHADOW JOKER PRO</header>
-
-<div class="container">
-
-    <div id="home">
-        
-        <a href="https://cyber-team-help-all-in-one.vercel.app/" target="_blank" class="main-tool-btn">
-            <i class="material-icons">terminal</i>
-            CYBER TEAM ALL-IN-ONE
-        </a>
-
-        <div class="card">
-            <h3><i class="material-icons" style="font-size:15px">security</i> Utilities</h3>
-            <input id="ipInput" placeholder="Enter Target IP">
-            <button onclick="ipLookup()">SCAN IP</button>
-            <button onclick="genPass()" style="margin-top:10px;">PASS GENERATOR</button>
-        </div>
-
-        <div class="card">
-            <h3><i class="material-icons" style="font-size:15px">settings_remote</i> Device Info</h3>
-            <div class="grid">
-                <button onclick="checkNet()">NET STATUS</button>
-                <button onclick="openCamera()">OPEN CAM</button>
-            </div>
-            <video id="cam" autoplay playsinline></video>
-        </div>
-
-        <div class="card">
-            <h3><i class="material-icons" style="font-size:15px">contact_support</i> Contact Dev</h3>
-            <div class="grid">
-                <a href="https://t.me/shadow_joker_cyberteamhelp" target="_blank" class="icon-btn">
-                    <i class="material-icons">send</i> Telegram
-                </a>
-                <a href="https://wa.me/8801950178309" target="_blank" class="icon-btn">
-                    <i class="material-icons">chat</i> WhatsApp
-                </a>
-            </div>
-        </div>
+<body class="scan-lines">
+    
+    <div class="cyber-bg">
+        <div class="grid-animation"></div>
+        <div class="particles" id="particles"></div>
     </div>
 
-    <div id="game" class="hidden">
-        <div class="card">
-            <h3><i class="material-icons" style="font-size:15px">sports_esports</i> Game Zone</h3>
-            <div class="grid">
-                <a href="https://poki.com" target="_blank" class="icon-btn">
-                    <i class="material-icons">videogame_asset</i> Poki
-                </a>
-                <a href="https://www.crazygames.com" target="_blank" class="icon-btn">
-                    <i class="material-icons">bolt</i> CrazyGames
-                </a>
-                <a href="https://poki.com/en/g/subway-surfers" target="_blank" class="icon-btn">
-                    <i class="material-icons">directions_run</i> Subway
-                </a>
-                <a href="https://slither.io" target="_blank" class="icon-btn">
-                    <i class="material-icons">gesture</i> Slither.io
-                </a>
-                <a href="https://www.y8.com" target="_blank" class="icon-btn">
-                    <i class="material-icons">history_edu</i> Y8 Classic
-                </a>
-                <a href="https://poki.com/en/g/temple-run-2" target="_blank" class="icon-btn">
-                    <i class="material-icons">landscape</i> Temple Run
-                </a>
+    <header>SHADOW JOKER PRO</header>
+
+    <div class="container">
+        <div id="home">
+            
+            <a href="https://cyber-team-help-all-in-one.vercel.app/" target="_blank" class="main-tool-btn">
+                <i class="material-icons">terminal</i>
+                CYBER TEAM ALL-IN-ONE
+            </a>
+
+            <div class="card">
+                <h3><i class="material-icons" style="font-size:16px; margin-right:8px;">security</i> Utilities</h3>
+                <input id="ipInput" placeholder="Enter Target IP">
+                <button onclick="ipLookup()">🔍 SCAN IP</button>
+                <button onclick="genPass()" style="margin-top:12px;">🔐 PASS GENERATOR</button>
             </div>
-        </div>
-    </div>
 
-</div>
-
-<nav>
-    <button onclick="showHome()"><i class="material-icons">home</i></button>
-    <button onclick="openGame()"><i class="material-icons">sports_esports</i></button>
-</nav>
-
-<script>
-    function showHome(){
-        document.getElementById("home").classList.remove("hidden");
-        document.getElementById("game").classList.add("hidden");
-    }
-    function openGame(){
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("game").classList.remove("hidden");
-    }
-
-    function checkNet(){
-        alert(navigator.onLine ? "Connected 🟢" : "Disconnected 🔴");
-    }
-
-    async function openCamera(){
-        try {
-            let s = await navigator.mediaDevices.getUserMedia({video:true});
-            document.getElementById("cam").srcObject = s;
-        } catch { alert("Camera Access Denied!"); }
-    }
-
-    function genPass(){
-        let p = Math.random().toString(36).slice(-10).toUpperCase();
-        alert("Strong Password: " + p);
-    }
-
-    async function ipLookup(){
-        let ip = document.getElementById("ipInput").value;
-        try {
-            let res = await fetch(`https://ipapi.co/${ip}/json/`);
-            let data = await res.json();
-            alert("Location: " + data.city + ", " + data.country_name);
-        } catch { alert("Network Error!"); }
-    }
-</script>
-
-</body>
-</html>
+            <div class="card">
+                <h3><i class="material-icons" style="font-size:16px; margin-right:8px;">settings_remote</i>
