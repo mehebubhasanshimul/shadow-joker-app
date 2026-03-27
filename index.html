@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Joker App</title>
+    <style>
+        :root {
+            --neon-green: #00ffcc;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(0, 255, 204, 0.05);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--neon-green);
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-green);
+            border-bottom: 2px solid var(--neon-green);
+            background: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main {
+            padding: 20px;
+            padding-bottom: 100px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h3 {
+            margin-top: 0;
+            border-left: 4px solid var(--neon-green);
+            padding-left: 10px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        button:active {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .chat-box {
+            height: 150px;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            padding: 10px;
+            margin-bottom: 5px;
+            background: rgba(0,0,0,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Snake Game Styling */
+        #gameContainer {
+            text-align: center;
+            position: relative;
+        }
+        canvas {
+            border: 2px solid var(--neon-green);
+            background: #000;
+            display: block;
+            margin: 10px auto;
+            max-width: 100%;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid var(--neon-green);
+            z-index: 1000;
+        }
+        nav button {
+            flex: 1;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            font-size: 1.2rem;
+            padding: 15px;
+        }
+
+        .hidden { display: none; }
+        
+        #list { list-style: none; padding: 0; }
+        #list li {
+            padding: 8px;
+            border-bottom: 1px border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<header>😈 SHADOW JOKER PRO</header>
+
+<div class="main">
+    <div id="home">
+        <div class="card">
+            <h3>🔥 Control Panel</h3>
+            <div class="grid">
+                <button onclick="playSound()">🔊 Beep</button>
+                <button onclick="checkNet()">🌐 Check Net</button>
+                <button onclick="openCamera()">📷 Live Cam</button>
+                <button onclick="switchToGame()">🎮 Play Game</button>
+            </div>
+            <p id="netStatus" style="text-align:center"></p>
+            <video id="cam" width="100%" autoplay style="border-radius: 8px; margin-top:10px;"></video>
+        </div>
+
+        <div class="card">
+            <h3>🛠 Hacker Tools</h3>
+            <input id="ipInput" placeholder="Enter Target IP (Optional)">
+            <button onclick="ipLookup()">🔍 Scan IP Info</button>
+            <button onclick="genPass()">🔑 Strong Pass Gen</button>
+            <input id="calcInput" placeholder="Terminal Calc (e.g. 500/2)">
+            <button onclick="calculate()">⚡ Execute</button>
+            <p id="calcResult" style="color: yellow;"></p>
+        </div>
+
+        <div class="card">
+            <h3>🧠 Cyber Chat (AI)</h3>
+            <div class="chat-box" id="chatBox"></div>
+            <div style="display: flex; gap: 5px;">
+                <input id="chatInput" placeholder="Ask Shadow Joker...">
+                <button onclick="sendMsg()" style="width: 80px;">Send</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💰 Operation Expense</h3>
+            <div class="grid">
+                <input id="desc" placeholder="Target/Item">
+                <input id="amount" type="number" placeholder="Cost ($)">
+            </div>
+            <button onclick="addExpense()">+ Log Expense</button>
+            <ul id="list"></ul>
+        </div>
+
+        <div class="card">
+            <h3>👤 Connect with Developer</h3>
+            <div class="grid">
+                <button onclick="window.location.href='https://t.me/shadow_joker_cyberteamhelp'">Telegram</button>
+                <button onclick="window.location.href='https://wa.me/8801950178309'">WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game" class="hidden">
+        <div class="card" id="gameContainer">
+            <h3>🐍 Shadow Snake</h3>
+            <p>Score: <span id="scoreVal">0</span></p>
+            <canvas id="snakeCanvas" width="300" height="300"></canvas>
+            <div class="grid">
+                <button onclick="switchToHome()">Back to Tools</button>
+                <button onclick="resetGame()">Reset Game</button>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Use Keyboard Arrows or Swipes to Control</p>
+        </div>
+    </div>
+</div>
+
+<nav>
+    <button onclick="switchToHome()">🏠</button>
+    <button onclick="switchToGame()">🎮</button>
+</nav>
+
+<script>
+    /* --- NAVIGATION --- */
+    function switchToHome(){
+        document.getElementById("home").classList.remove("hidden");
+        document.getElementById("game").classList.add("hidden");
+    }
+    function switchToGame(){
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("game").classList.remove("hidden");
+        resetGame();
+    }
+
+    /* --- TOOLS LOGIC --- */
+    function playSound(){
+        new Audio("https://www.soundjay.com/button/beep-07.wav").play();
+    }
+
+    function checkNet(){
+        const status = navigator.onLine ? "✅ SYSTEM ONLINE" : "❌ CONNECTION LOST";
+        document.getElementById("netStatus").innerText = status;
+    }
+
+    async function openCamera(){
+        try{
+            let stream = await navigator.mediaDevices.getUserMedia({video:true});
+            document.getElementById("cam").srcObject = stream;
+        }catch{
+            alert("Camera Access Denied!");
+        }
+    }
+
+    function sendMsg(){
+        let input=document.getElementById("chatInput");
+        let box=document.getElementById("chatBox");
+        if(!input.value) return;
+        box.innerHTML += `<p style='color:white'><b>You:</b> ${input.value}</p>`;
+        setTimeout(() => {
+            box.innerHTML += `<p><b>Shadow:</b> Command received. Proceeding... 😈</p>`;
+            box.scrollTop = box.scrollHeight;
+        }, 500);
+        input.value="";
+    }
+
+    function addExpense(){
+        let desc = document.getElementById("desc").value;
+        let amount = document.getElementById("amount").value;
+        if(!desc || !amount) return;
+        let li=document.createElement("li");
+        li.innerHTML = `<span>${desc}</span> <span style="float:right">$${amount}</span>`;
+        document.getElementById("list").prepend(li);
+    }
+
+    function genPass(){
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+        let pass = Array.from({length:12}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
+        alert("Generated Password: " + pass);
+    }
+
+    async function ipLookup(){
+        let ip=document.getElementById("ipInput").value;
+        try {
+            let res=await fetch(`https://ipapi.co/${ip}/json/`);
+            let data=await res.json();
+            alert(`Location: ${data.city}, ${data.country_name}\nISP: ${data.org}`);
+        } catch { alert("Failed to fetch IP data"); }
+    }
+
+    function calculate(){
+        try {
+            document.getElementById("calcResult").innerText = "Result: " + eval(document.getElementById("calcInput").value);
+        } catch { document.getElementById("calcResult").innerText = "Error!"; }
+    }
+
+    /* --- SNAKE GAME LOGIC --- */
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+    const box = 15;
+    let snake, food, direction, score, gameLoop;
+
+    function resetGame(){
+        clearInterval(gameLoop);
+        snake = [{x: 9 * box, y: 10 * box}];
+        food = {
+            x: Math.floor(Math.random() * 19 + 1) * box,
+            y: Math.floor(Math.random() * 19 + 1) * box
+        };
+        direction = "RIGHT";
+        score = 0;
+        document.getElementById("scoreVal").innerText = score;
+        gameLoop = setInterval(draw, 120);
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if(e.keyCode == 37 && direction != "RIGHT") direction = "LEFT";
+        else if(e.keyCode == 38 && direction != "DOWN") direction = "UP";
+        else if(e.keyCode == 39 && direction != "LEFT") direction = "RIGHT";
+        else if(e.keyCode == 40 && direction != "UP") direction = "DOWN";
+    });
+
+    function draw() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for(let i = 0; i < snake.length; i++) {
+            ctx.fillStyle = (i == 0) ? varName("--neon-green") : "rgba(0,255,204,0.5)";
+            ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            ctx.strokeStyle = "black";
+            ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+        }
+
+        ctx.fillStyle = "red";
+        ctx.fillRect(food.x, food.y, box, box);
+
+        let snakeX = snake[0].x;
+        let snakeY = snake[0].y;
+
+        if( direction == "LEFT") snakeX -= box;
+        if( direction == "UP") snakeY -= box;
+        if( direction == "RIGHT") snakeX += box;
+        if( direction == "DOWN") snakeY += box;
+
+        if(snakeX == food.x && snakeY == food.y) {
+            score++;
+            document.getElementById("scoreVal").innerText = score;
+            food = {
+                x: Math.floor(Math.random() * 19 + 1) * box,
+                y: Math.floor(Math.random() * 19 + 1) * box
+            };
+        } else {
+            snake.pop();
+        }
+
+        let newHead = { x: snakeX, y: snakeY };
+
+        if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+            clearInterval(gameLoop);
+            alert("Game Over! Score: " + score);
+            resetGame();
+        }
+
+        snake.unshift(newHead);
+    }
+
+    function collision(head, array) {
+        for(let i = 0; i < array.length; i++) {
+            if(head.x == array[i].x && head.y == array[i].y) return true;
+        }
+        return false;
+    }
+
+    function varName(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+</script>
+</body>
+  </html>
