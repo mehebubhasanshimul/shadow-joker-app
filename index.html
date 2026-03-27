@@ -3,141 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Joker App</title>
+    <title>😈 Shadow Joker Pro - Cyber Hub</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-green: #00ffcc;
-            --dark-bg: #080808;
-            --accent-color: #00ffcc;
+            --neon-purple: #ff00ff;
+            --neon-blue: #00bfff;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(0, 255, 204, 0.08);
+            --glass-bg: rgba(255,255,255,0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Orbitron', monospace;
             background: var(--dark-bg);
-            /* প্রফেশনাল ডার্ক গ্রিড ব্যাকগ্রাউন্ড */
-            background-image: 
-                linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
             color: var(--neon-green);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated Cyber Matrix Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 50%, rgba(0,255,204,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,0,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(0,191,255,0.1) 0%, transparent 50%);
+            background-size: 200% 200%;
+            animation: matrixFlow 15s ease-in-out infinite;
+        }
+
+        @keyframes matrixFlow {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 1; }
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,204,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,204,0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridScan 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes gridScan {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-purple));
+            border-radius: 50%;
+            animation: particleFloat 10s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid var(--neon-green);
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+            padding: 25px 20px;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 3px solid transparent;
+            background-clip: padding-box;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(20px);
+            animation: neonPulse 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+
+        @keyframes neonPulse {
+            0% { 
+                box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green), inset 0 0 20px rgba(0,255,204,0.2);
+                border-image: linear-gradient(var(--neon-green), var(--neon-purple)) 1;
+            }
+            100% { 
+                box-shadow: 0 0 30px var(--neon-purple), 0 0 60px var(--neon-purple), inset 0 0 30px rgba(255,0,255,0.3);
+                border-image: linear-gradient(var(--neon-purple), var(--neon-blue)) 1;
+            }
         }
 
         .main {
-            padding: 15px;
-            padding-bottom: 80px;
-            max-width: 500px;
+            padding: 25px 20px;
+            padding-bottom: 130px;
+            max-width: 650px;
             margin: auto;
+            position: relative;
+            z-index: 10;
         }
 
         .card {
-            margin-bottom: 20px;
-            padding: 18px;
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 20px;
             border: 1px solid rgba(0, 255, 204, 0.3);
-            background: rgba(0, 255, 204, 0.03);
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,204,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-green);
+            box-shadow: 
+                0 20px 50px rgba(0,255,204,0.3),
+                0 0 30px rgba(0,255,204,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
         h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
+            margin: 0 0 20px 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-left: 5px solid var(--neon-green);
+            padding-left: 15px;
             text-transform: uppercase;
-            border-left: 4px solid var(--neon-green);
-            padding-left: 10px;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-purple), var(--neon-blue));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleShimmer 3s infinite;
         }
 
-        /* প্রফেশনাল বড় বাটন (টুলস এর জন্য) */
-        .big-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(45deg, #000, #111);
-            border: 2px solid var(--neon-green);
-            color: var(--neon-green);
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-        }
-
-        .big-btn:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-green);
+        @keyframes titleShimmer {
+            0%, 100% { filter: drop-shadow(0 0 5px var(--neon-green)); }
+            50% { filter: drop-shadow(0 0 15px var(--neon-purple)); }
         }
 
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
         }
 
-        .btn-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 5px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .btn-link span {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
-        .btn-link:hover {
-            background: rgba(0, 255, 204, 0.15);
-            transform: translateY(-3px);
-        }
-
-        input {
+        input, textarea, button {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: #000;
-            border: 1px solid var(--neon-green);
-            color: #fff;
-            border-radius: 5px;
+            padding: 15px 18px;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid rgba(0,255,204,0.4);
+            color: var(--neon-green);
+            border-radius: 12px;
             box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0,255,204,0.3);
+            background: rgba(0,255,204,0.08);
         }
 
         button {
-            width: 100%;
-            padding: 12px;
-            background: #000;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            font-weight: bold;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
-            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,255,204,0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-purple));
+            color: #000;
+            box-shadow: 0 5px 15px rgba(0,255,204,0.6);
+        }
+
+        .chat-box {
+            height: 160px;
+            overflow-y: auto;
+            border: 2px solid rgba(0,255,204,0.5);
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg {
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Enhanced Game Styling */
+        #gameContainer {
+            text-align: center;
+            position: relative;
+        }
+
+        #gameCanvas {
+            border: 3px solid var(--neon-green);
+            border-radius: 15px;
+            background: linear-gradient(45deg, #000, #111);
+            box-shadow: 
+                0 0 30px rgba(0,255,204,0.5),
+                inset 0 0 20px rgba(0,0,0,0.8);
+            display: block;
+            margin: 15px auto;
+            cursor: grab;
+            transition: all 0.3s ease;
+        }
+
+        #gameCanvas:active {
+            cursor: grabbing;
+            transform: scale(1.02);
+        }
+
+        #scoreBoard {
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         nav {
@@ -145,136 +327,509 @@
             bottom: 0;
             width: 100%;
             display: flex;
-            background: #000;
-            border-top: 2px solid var(--neon-green);
+            background: rgba(0,0,0,0.95);
+            border-top: 3px solid var(--neon-green);
+            backdrop-filter: blur(30px);
             z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(0,255,204,0.3);
         }
 
         nav button {
             flex: 1;
             border: none;
             font-size: 1.5rem;
-            padding: 15px;
-            border-radius: 0;
+            padding: 20px;
+            background: none;
+            color: var(--neon-green);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav button.active {
+            background: rgba(0,255,204,0.2);
+            box-shadow: inset 0 0 20px rgba(0,255,204,0.3);
+        }
+
+        nav button:hover {
+            color: var(--neon-purple);
+            transform: translateY(-2px);
         }
 
         .hidden { display: none; }
-        #cam { width: 100%; border-radius: 8px; margin-top: 10px; }
+
+        #expenseList {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        #expenseList li {
+            padding: 12px;
+            border-bottom: 1px solid rgba(0,255,204,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+            .main { padding: 20px 15px; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,255,204,0.3);
+            border-radius: 50%;
+            border-top-color: var(--neon-green);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body>
+<body class="matrix-bg">
+    <div class="grid-overlay"></div>
+    <div class="particles" id="particles"></div>
 
-<header>🎭 SHADOW JOKER HUB</header>
+    <header>😈 SHADOW JOKER PRO v2.0</header>
 
-<div class="main">
-
-    <div id="home">
-        
-        <a href="https://cyber-team-help-all-in-one.vercel.app/" class="big-btn" target="_blank">
-            🛠️ CYBER TEAM ALL-IN-ONE TOOLS
-        </a>
-
-        <div class="card">
-            <h3>🛡️ Terminal Tools</h3>
-            <input id="ipInput" placeholder="Enter Target IP">
-            <button onclick="ipLookup()">Scan IP Information</button>
-            <button onclick="genPass()" style="margin-top:10px;">Generate Secure Pass</button>
-        </div>
-
-        <div class="card">
-            <h3>🌐 Network & Device</h3>
-            <div class="grid">
-                <button onclick="checkNet()">Net Status</button>
-                <button onclick="openCamera()">Live Camera</button>
+    <div class="main">
+        <div id="home">
+            <!-- Control Panel -->
+            <div class="card">
+                <h3>🎮 Control Center</h3>
+                <div class="grid">
+                    <button onclick="playCyberSound()">🔊 Cyber Beep</button>
+                    <button onclick="checkSystem()">🖥️ System Check</button>
+                    <button onclick="accessCamera()">📹 Live Feed</button>
+                    <button onclick="switchToGame()">⚡ Matrix Snake</button>
+                </div>
+                <div style="text-align:center; margin-top:15px;">
+                    <p id="systemStatus" style="font-family: monospace; font-size:1.1rem;"></p>
+                </div>
+                <video id="liveFeed" style="width:100%; border-radius:12px; margin-top:10px; display:none;" autoplay muted></video>
             </div>
-            <video id="cam" autoplay playsinline></video>
+
+            <!-- Hacker Tools -->
+            <div class="card">
+                <h3>🛠️ Cyber Tools</h3>
+                <input id="targetIP" placeholder="🎯 Target IP/Domain">
+                <button onclick="scanTarget()">🔍 Deep Scan</button>
+                <button onclick="generatePassword()">🔐 Elite Password</button>
+                <input id="terminalInput" placeholder="💻 Terminal Calc (e.g: 999/3*2)">
+                <button onclick="executeTerminal()">🚀 EXECUTE</button>
+                <p id="terminalOutput" style="color:#00ff88; font-family:monospace; margin-top:10px;"></p>
+            </div>
+
+            <!-- AI Chat -->
+            <div class="card">
+                <h3>🤖 Shadow AI Chat</h3>
+                <div class="chat-box" id="chatInterface"></div>
+                <div style="display:flex; gap:8px;">
+                    <input id="aiInput" placeholder="💭 Ask Shadow AI..." onkeypress="if(event.keyCode==13) sendAIMessage()">
+                    <button onclick="sendAIMessage()" style="width:85px; padding:15px 10px;">SEND</button>
+                </div>
+            </div>
+
+            <!-- Operations -->
+            <div class="card">
+                <h3>💰 Mission Expenses</h3>
+                <div class="grid">
+                    <input id="missionDesc" placeholder="🕵️ Mission/Target">
+                    <input id="missionCost" type="number" placeholder="💵 Cost (USD)">
+                </div>
+                <button onclick="logMissionExpense()">📝 + ADD EXPENSE</button>
+                <div id="expenseList"></div>
+            </div>
+
+            <!-- Developer Contact -->
+            <div class="card">
+                <h3>📞 Shadow Network</h3>
+                <div class="grid">
+                    <button onclick="connectTelegram()" style="background: linear-gradient(45deg, #0088cc, #00aaff)">
+                        <i class="material-icons" style="font-size:1.2rem; vertical-align:middle;">send</i> Telegram
+                    </button>
+                    <button onclick="connectWhatsApp()" style="background: linear-gradient(45deg, #25D366, #128C7E)">
+                        <i class="material-icons" style="font-size:1.2rem; vertical-align:middle;">chat</i> WhatsApp
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <h3>💬 Contact Admin</h3>
-            <div class="grid">
-                <a href="https://t.me/shadow_joker_cyberteamhelp" class="btn-link" target="_blank">
-                    <span>📱</span> Telegram
-                </a>
-                <a href="https://wa.me/8801950178309" class="btn-link" target="_blank">
-                    <span>💬</span> WhatsApp
-                </a>
+        <!-- Enhanced Matrix Snake Game -->
+        <div id="game" class="hidden">
+            <div class="card" style="text-align:center;">
+                <h3>🐍 MATRIX SNAKE v2.0</h3>
+                <div id="scoreBoard">
+                    <span>Score: <span id="gameScore">0</span></span> | 
+                    <span>Level: <span id="gameLevel">1</span></span> | 
+                    <span>High: <span id="highScore">0</span></span>
+                </div>
+                <canvas id="gameCanvas" width="350" height="350"></canvas>
+                <div class="grid" style="margin-top:20px;">
+                    <button onclick="switchToHome()">🏠 Mission Control</button>
+                    <button onclick="resetMatrixGame()">🔄 New Game</button>
+                    <button onclick="togglePause()">⏸️ Pause</button>
+                </div>
+                <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">
+                    ⌨️ Arrow Keys | 📱 Touch Swipe | 🎮 WASD
+                </p>
             </div>
         </div>
     </div>
 
-    <div id="game" class="hidden">
-        <div class="card">
-            <h3>🎮 Professional Games</h3>
-            <div class="grid">
-                <a href="https://poki.com" class="btn-link" target="_blank">
-                    <span>🎲</span> Poki Games
-                </a>
-                <a href="https://www.crazygames.com" class="btn-link" target="_blank">
-                    <span>🔥</span> CrazyGames
-                </a>
-                <a href="https://poki.com/en/g/subway-surfers" class="btn-link" target="_blank">
-                    <span>🏃</span> Subway Surfer
-                </a>
-                <a href="https://slither.io" class="btn-link" target="_blank">
-                    <span>🐍</span> Slither.io
-                </a>
-                <a href="https://www.y8.com" class="btn-link" target="_blank">
-                    <span>🕹️</span> Y8 Classic
-                </a>
-                <a href="https://poki.com/en/g/temple-run-2" class="btn-link" target="_blank">
-                    <span>🗿</span> Temple Run 2
-                </a>
-            </div>
-            <button onclick="showHome()" style="margin-top:20px; border-color: #555; color: #555;">Back to Home</button>
-        </div>
-    </div>
+    <nav>
+        <button onclick="switchToHome()" id="navHome">
+            <i class="material-icons">dashboard</i><br>HOME
+        </button>
+        <button onclick="switchToGame()" id="navGame">
+            <i class="material-icons">games</i><br>GAME
+        </button>
+    </nav>
 
-</div>
+    <script>
+        // Particles Generator
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                container.appendChild(particle);
+            }
+        }
 
-<nav>
-    <button onclick="showHome()">🏠</button>
-    <button onclick="openGame()">🎮</button>
-</nav>
+        // Navigation
+        function switchToHome() {
+            document.getElementById("home").classList.remove("hidden");
+            document.getElementById("game").classList.add("hidden");
+            document.getElementById("navHome").classList.add("active");
+            document.getElementById("navGame").classList.remove("active");
+        }
 
-<script>
-    function showHome(){
-        document.getElementById("home").classList.remove("hidden");
-        document.getElementById("game").classList.add("hidden");
-        window.scrollTo(0,0);
-    }
-    function openGame(){
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("game").classList.remove("hidden");
-        window.scrollTo(0,0);
-    }
+        function switchToGame() {
+            document.getElementById("home").classList.add("hidden");
+            document.getElementById("game").classList.remove("hidden");
+            document.getElementById("navGame").classList.add("active");
+            document.getElementById("navHome").classList.remove("active");
+            initMatrixGame();
+        }
 
-    /* টুলস ফাংশন */
-    function checkNet(){
-        alert(navigator.onLine ? "System Connected 🟢" : "System Offline 🔴");
-    }
+        // Enhanced Tools
+        function playCyberSound() {
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAo');
+            audio.play().catch(() => {});
+            showStatus('🔊 Cyber beep transmitted!', 'success');
+        }
 
-    async function openCamera(){
-        try {
-            let s = await navigator.mediaDevices.getUserMedia({video:true});
-            document.getElementById("cam").srcObject = s;
-        } catch { alert("Camera Access Denied!"); }
-    }
+        async function checkSystem() {
+            document.getElementById("systemStatus").innerHTML = '<span class="loading"></span> Scanning...';
+            await new Promise(r => setTimeout(r, 1200));
+            
+            const battery = navigator.getBattery ? await navigator.getBattery() : {level: 'N/A'};
+            const info = `🟢 CPU: ${navigator.hardwareConcurrency || 'Unknown'} cores<br>
+                         🔋 Battery: ${(battery.level * 100).toFixed(0)}%<br>
+                         🌐 Connection: ${navigator.onLine ? 'ONLINE' : 'OFFLINE'}<br>
+                         📱 Device: ${navigator.userAgentData?.platform || 'Unknown'}`;
+            document.getElementById("systemStatus").innerHTML = info;
+        }
 
-    function genPass(){
-        let p = Math.random().toString(36).slice(-10).toUpperCase();
-        alert("Generated: " + p);
-    }
+        async function accessCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}});
+                const video = document.getElementById("liveFeed");
+                video.srcObject = stream;
+                video.style.display = 'block';
+                showStatus('📹 Live feed activated!', 'success');
+            } catch(e) {
+                showStatus('❌ Camera access denied', 'error');
+            }
+        }
 
-    async function ipLookup(){
-        let ip = document.getElementById("ipInput").value;
-        try {
-            let res = await fetch(`https://ipapi.co/${ip}/json/`);
-            let data = await res.json();
-            alert(`IP Info:\nCity: ${data.city}\nISP: ${data.org}`);
-        } catch { alert("Error fetching data"); }
-    }
-</script>
+        function generatePassword() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*';
+            const pass = Array(16).fill().map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+            navigator.clipboard.writeText(pass);
+            showStatus(`🔐 Elite password generated & copied: ${pass.substring(0,8)}...`, 'success');
+        }
 
+        async function scanTarget() {
+            const ip = document.getElementById("targetIP").value || (await fetch('https://api.ipify.org?format=json')).then(r=>r.json()).then(d=>d.ip);
+            document.getElementById("terminalOutput").innerHTML = '<span class="loading"></span> Scanning...';
+            
+            try {
+                const res = await fetch(`https://ipapi.co/${ip}/json/`);
+                const data = await res.json();
+                document.getElementById("terminalOutput").innerHTML = `
+                    🎯 <strong>${data.ip}</strong><br>
+                    🌍 ${data.city}, ${data.region} - ${data.country_name}<br>
+                    🏢 ${data.org || 'Unknown'}<br>
+                    📡 ASN: ${data.asn || 'N/A'} | Latency: ${Math.floor(Math.random()*200)}ms
+                `;
+            } catch {
+                document.getElementById("terminalOutput").innerHTML = '❌ Scan failed - Target offline';
+            }
+        }
+
+        function executeTerminal() {
+            try {
+                const result = eval(document.getElementById("terminalInput").value);
+                document.getElementById("terminalOutput").innerHTML = `✅ OUTPUT: <span style="color:#00ff88">${result}</span>`;
+            } catch(e) {
+                document.getElementById("terminalOutput").innerHTML = '❌ Syntax Error';
+            }
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById("aiInput");
+            const chat = document.getElementById("chatInterface");
+            if(!input.value.trim()) return;
+            
+            const msg = document.createElement('div');
+            msg.className = 'chat-msg';
+            msg.style.color = '#00ff88';
+            msg.innerHTML = `<strong>👤 You:</strong> ${input.value}`;
+            chat.appendChild(msg);
+            
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-msg';
+                aiMsg.innerHTML = `<strong>🤖 Shadow AI:</strong> ${getAIResponse(input.value)}`;
+                chat.appendChild(aiMsg);
+                chat.scrollTop = chat.scrollHeight;
+            }, 800);
+            
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function getAIResponse(msg) {
+            const responses = {
+                'hack': '🔓 Target analysis complete. Vulnerabilities detected.',
+                'scan': '📡 Scanning network... 47% ports open.',
+                'help': '🆘 Commands: hack, scan, status, clear, password',
+                'status': '🟢 All systems operational. Ready for mission.',
+                'default': 'Command acknowledged. Executing shadow protocol...'
+            };
+            return responses[msg.toLowerCase()] || responses.default;
+        }
+
+        function logMissionExpense() {
+            const desc = document.getElementById("missionDesc").value;
+            const cost = document.getElementById("missionCost").value;
+            if(!desc || !cost) return showStatus('❌ Enter mission details', 'error');
+            
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${desc}</span> <span style="color:var(--neon-purple)">$${cost}</span>`;
+            document.getElementById("expenseList").prepend(li);
+            showStatus(`💰 Mission expense logged: $${cost}`, 'success');
+            
+            document.getElementById("missionDesc").value = '';
+            document.getElementById("missionCost").value = '';
+        }
+
+        // Enhanced Matrix Snake Game v2.0
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        let gameState = {
+            snake: [{x: 9, y: 10}],
+            food: {},
+            dx: 1, dy: 0,
+            score: 0, level: 1, highScore: localStorage.getItem('shadowHighScore') || 0,
+            paused: false, gameRunning: false,
+            gridSize: 23, cellSize: 15
+        };
+
+        function initMatrixGame() {
+            generateFood();
+            updateScoreboard();
+            gameLoop();
+        }
+
+        function resetMatrixGame() {
+            gameState = {
+                snake: [{x: 9, y: 10}],
+                food: {}, dx: 1, dy: 0,
+                score: 0, level: 1,
+                paused: false, gameRunning: true
+            };
+            generateFood();
+            updateScoreboard();
+        }
+
+        function generateFood() {
+            gameState.food = {
+                x: Math.floor(Math.random() * gameState.gridSize),
+                y: Math.floor(Math.random() * gameState.gridSize)
+            };
+        }
+
+        function updateScoreboard() {
+            document.getElementById('gameScore').textContent = gameState.score;
+            document.getElementById('gameLevel').textContent = gameState.level;
+            document.getElementById('highScore').textContent = gameState.highScore;
+        }
+
+        function gameLoop() {
+            if(!gameState.gameRunning || gameState.paused) return;
+            
+            setTimeout(() => {
+                update();
+                draw();
+                requestAnimationFrame(gameLoop);
+            }, 150 - (gameState.level * 10));
+        }
+
+        function update() {
+            const head = {x: gameState.snake[0].x + gameState.dx, y: gameState.snake[0].y + gameState.dy};
+            
+            // Wall collision
+            if(head.x < 0 || head.x >= gameState.gridSize || head.y < 0 || head.y >= gameState.gridSize) {
+                gameOver();
+                return;
+            }
+            
+            // Self collision
+            for(let segment of gameState.snake) {
+                if(head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            gameState.snake.unshift(head);
+            
+            // Food collision
+            if(head.x === gameState.food.x && head.y === gameState.food.y) {
+                gameState.score += 10 * gameState.level;
+                if(gameState.score > gameState.highScore) {
+                    gameState.highScore = gameState.score;
+                    localStorage.setItem('shadowHighScore', gameState.highScore);
+                }
+                gameState.level = Math.floor(gameState.score / 100) + 1;
+                generateFood();
+                updateScoreboard();
+            } else {
+                gameState.snake.pop();
+            }
+        }
+
+        function draw() {
+            // Clear canvas
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#000');
+            gradient.addColorStop(1, '#111');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw snake with glow
+            for(let i = 0; i < gameState.snake.length; i++) {
+                ctx.shadowColor = varName('--neon-green');
+                ctx.shadowBlur = 15;
+                ctx.fillStyle = i === 0 ? '#00ff88' : `rgba(0,255,136,${0.3 + i/gameState.snake.length * 0.7})`;
+                ctx.fillRect(
+                    gameState.snake[i].x * gameState.cellSize, 
+                    gameState.snake[i].y * gameState.cellSize, 
+                    gameState.cellSize - 1, gameState.cellSize - 1
+                );
+            }
+            ctx.shadowBlur = 0;
+            
+            // Draw food with pulse
+            ctx.shadowColor = '#ff4444';
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = '#ff4488';
+            ctx.beginPath();
+            ctx.arc(
+                gameState.food.x * gameState.cellSize + gameState.cellSize/2,
+                gameState.food.y * gameState.cellSize + gameState.cellSize/2,
+                gameState.cellSize/2 - 2, 0, Math.PI * 2
+            );
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function gameOver() {
+            gameState.gameRunning = false;
+            setTimeout(() => {
+                alert(`💀 GAME OVER!\nFinal Score: ${gameState.score}\nHigh Score: ${gameState.highScore}`);
+                resetMatrixGame();
+            }, 100);
+        }
+
+        function togglePause() {
+            gameState.paused = !gameState.paused;
+        }
+
+        // Controls
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowLeft' && gameState.dx !== 1) { gameState.dx = -1; gameState.dy = 0; }
+            if(e.key === 'ArrowUp' && gameState.dy !== 1) { gameState.dx = 0; gameState.dy = -1; }
+            if(e.key === 'ArrowRight' && gameState.dx !== -1) { gameState.dx = 1; gameState.dy = 0; }
+            if(e.key === 'ArrowDown' && gameState.dy !== -1) { gameState.dx = 0; gameState.dy = 1; }
+        });
+
+        // Touch controls
+        let touchStartX, touchStartY;
+        canvas.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            
+            if(Math.abs(diffX) > Math.abs(diffY)) {
+                if(diffX > 0 && gameState.dx !== 1) { gameState.dx = -1; gameState.dy = 0; }
+                else if(diffX < 0 && gameState.dx !== -1) { gameState.dx = 1; gameState.dy = 0; }
+            } else {
+                if(diffY > 0 && gameState.dy !== 1) { gameState.dx = 0; gameState.dy = -1; }
+                else if(diffY < 0 && gameState.dy !== -1) { gameState.dx = 0; gameState.dy = 1; }
+            }
+        });
+
+        // Utility Functions
+        function showStatus(msg, type = 'info') {
+            const status = document.getElementById("systemStatus");
+            status.innerHTML = `${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'} ${msg}`;
+            setTimeout(() => { status.innerHTML = ''; }, 4000);
+        }
+
+        function connectTelegram() {
+            window.open('https://t.me/shadow_joker_cyberteamhelp', '_blank');
+        }
+
+        function connectWhatsApp() {
+            window.open('https://wa.me/8801950178309', '_blank');
+        }
+
+        function varName(name) {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createParticles();
+            checkSystem();
+            switchToHome();
+        });
+    </script>
 </body>
 </html>
