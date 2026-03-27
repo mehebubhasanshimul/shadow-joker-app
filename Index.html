@@ -3,84 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHADOW JOKER - ALL IN ONE</title>
+    <title>SHADOW JOKER - CYBER HUB</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --glow: #00ffcc;
-            --bg: #050505;
+            --neon: #00ffcc;
+            --dark: #0a0a0a;
         }
 
         body {
             margin: 0;
-            padding: 0;
-            background: var(--bg);
-            color: var(--glow);
-            font-family: 'Segoe UI', sans-serif;
-            /* প্রফেশনাল হ্যাকিং গ্রিড ব্যাকগ্রাউন্ড */
-            background-image: 
-                linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
-            background-size: 25px 25px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--neon);
+            /* প্রফেশনাল ডার্ক গ্রিড ব্যাকগ্রাউন্ড */
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         header {
             text-align: center;
             padding: 20px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            background: rgba(0,0,0,0.9);
-            border-bottom: 2px solid var(--glow);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            background: #000;
+            border-bottom: 2px solid var(--neon);
+            box-shadow: 0 0 15px var(--neon);
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .main {
+        .container {
             padding: 20px;
             padding-bottom: 100px;
             max-width: 500px;
             margin: auto;
         }
 
-        /* স্পেশাল টুলস বাটন */
-        .cyber-btn {
+        /* স্পেশাল মেইন টুল বাটন */
+        .main-tool-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            background: #000;
-            border: 2px solid var(--glow);
-            color: var(--glow);
+            gap: 10px;
+            background: linear-gradient(45deg, #000, #111);
+            border: 2px solid var(--neon);
+            color: var(--neon);
             padding: 18px;
-            font-size: 1.1rem;
-            font-weight: bold;
             text-decoration: none;
-            border-radius: 10px;
+            font-weight: bold;
+            border-radius: 12px;
             margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
-            transition: 0.4s;
+            box-shadow: 0 0 10px var(--neon);
+            transition: 0.3s;
         }
 
-        .cyber-btn:hover {
-            background: var(--glow);
+        .main-tool-btn:active {
+            transform: scale(0.95);
+            background: var(--neon);
             color: #000;
-            box-shadow: 0 0 25px var(--glow);
-            transform: scale(1.02);
         }
 
         .card {
-            background: rgba(0, 255, 204, 0.04);
+            background: rgba(0, 255, 204, 0.05);
             border: 1px solid rgba(0, 255, 204, 0.2);
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 20px;
-            backdrop-filter: blur(5px);
         }
 
         h3 {
-            margin: 0 0 15px 0;
+            margin-top: 0;
             font-size: 1rem;
-            border-left: 3px solid var(--glow);
+            border-left: 4px solid var(--neon);
             padding-left: 10px;
         }
 
@@ -90,51 +84,44 @@
             gap: 12px;
         }
 
-        .game-card {
+        .icon-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(0,0,0,0.7);
-            border: 1px solid var(--glow);
-            color: var(--glow);
-            padding: 15px 10px;
+            background: #000;
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 15px 5px;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 0.85rem;
             transition: 0.3s;
         }
 
-        .game-card:hover {
-            background: rgba(0, 255, 204, 0.1);
-            border-color: #fff;
-        }
+        .icon-btn i { font-size: 2rem; margin-bottom: 8px; }
 
-        .icon { font-size: 2rem; margin-bottom: 8px; }
+        .icon-btn:active { background: rgba(0,255,204,0.2); }
 
         input {
             width: 100%;
             padding: 12px;
-            background: #000;
-            border: 1px solid var(--glow);
+            background: #111;
+            border: 1px solid var(--neon);
             color: #fff;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            border-radius: 6px;
             box-sizing: border-box;
+            margin-bottom: 10px;
         }
 
         button {
             width: 100%;
             padding: 12px;
             background: #000;
-            color: var(--glow);
-            border: 1px solid var(--glow);
+            color: var(--neon);
+            border: 1px solid var(--neon);
             font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: 0.2s;
         }
-
-        button:active { background: var(--glow); color: #000; }
 
         nav {
             position: fixed;
@@ -142,51 +129,52 @@
             width: 100%;
             display: flex;
             background: #000;
-            border-top: 2px solid var(--glow);
+            border-top: 2px solid var(--neon);
         }
 
-        nav button { flex: 1; border: none; font-size: 1.5rem; padding: 15px; border-radius: 0; }
+        nav button { flex: 1; border: none; font-size: 1.8rem; padding: 15px; border-radius: 0; }
 
         .hidden { display: none; }
-        video { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px dashed var(--glow); }
+        video { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px dashed var(--neon); }
     </style>
 </head>
 <body>
 
-<header>🎭 SHADOW JOKER PRO</header>
+<header>SHADOW JOKER PRO</header>
 
-<div class="main">
+<div class="container">
 
     <div id="home">
         
-        <a href="https://cyber-team-help-all-in-one.vercel.app/" target="_blank" class="cyber-btn">
-            <span>🛠️</span> CYBER TEAM ALL TOOLS
+        <a href="https://cyber-team-help-all-in-one.vercel.app/" target="_blank" class="main-tool-btn">
+            <i class="material-icons">terminal</i>
+            CYBER TEAM ALL-IN-ONE
         </a>
 
         <div class="card">
-            <h3>🛡️ Terminal Tools</h3>
-            <input id="ipInput" placeholder="Enter IP Address">
-            <button onclick="ipLookup()">Scan IP</button>
-            <button onclick="genPass()" style="margin-top:10px;">Generate Password</button>
+            <h3><i class="material-icons" style="font-size:15px">security</i> Utilities</h3>
+            <input id="ipInput" placeholder="Enter Target IP">
+            <button onclick="ipLookup()">SCAN IP</button>
+            <button onclick="genPass()" style="margin-top:10px;">PASS GENERATOR</button>
         </div>
 
         <div class="card">
-            <h3>🌐 System Center</h3>
+            <h3><i class="material-icons" style="font-size:15px">settings_remote</i> Device Info</h3>
             <div class="grid">
-                <button onclick="checkNet()">Net Status</button>
-                <button onclick="openCamera()">Live Cam</button>
+                <button onclick="checkNet()">NET STATUS</button>
+                <button onclick="openCamera()">OPEN CAM</button>
             </div>
             <video id="cam" autoplay playsinline></video>
         </div>
 
         <div class="card">
-            <h3>📱 Contact Dev</h3>
+            <h3><i class="material-icons" style="font-size:15px">contact_support</i> Contact Dev</h3>
             <div class="grid">
-                <a href="https://t.me/shadow_joker_cyberteamhelp" target="_blank" class="game-card">
-                    <span class="icon">✈️</span> Telegram
+                <a href="https://t.me/shadow_joker_cyberteamhelp" target="_blank" class="icon-btn">
+                    <i class="material-icons">send</i> Telegram
                 </a>
-                <a href="https://wa.me/8801950178309" target="_blank" class="game-card">
-                    <span class="icon">💬</span> WhatsApp
+                <a href="https://wa.me/8801950178309" target="_blank" class="icon-btn">
+                    <i class="material-icons">chat</i> WhatsApp
                 </a>
             </div>
         </div>
@@ -194,25 +182,25 @@
 
     <div id="game" class="hidden">
         <div class="card">
-            <h3>🎮 Games Dashboard</h3>
+            <h3><i class="material-icons" style="font-size:15px">sports_esports</i> Game Zone</h3>
             <div class="grid">
-                <a href="https://poki.com" target="_blank" class="game-card">
-                    <span class="icon">🕹️</span> Poki Games
+                <a href="https://poki.com" target="_blank" class="icon-btn">
+                    <i class="material-icons">videogame_asset</i> Poki
                 </a>
-                <a href="https://www.crazygames.com" target="_blank" class="game-card">
-                    <span class="icon">🔥</span> CrazyGames
+                <a href="https://www.crazygames.com" target="_blank" class="icon-btn">
+                    <i class="material-icons">bolt</i> CrazyGames
                 </a>
-                <a href="https://poki.com/en/g/subway-surfers" target="_blank" class="game-card">
-                    <span class="icon">🏃</span> Subway Surfer
+                <a href="https://poki.com/en/g/subway-surfers" target="_blank" class="icon-btn">
+                    <i class="material-icons">directions_run</i> Subway
                 </a>
-                <a href="https://slither.io" target="_blank" class="game-card">
-                    <span class="icon">🐍</span> Slither.io
+                <a href="https://slither.io" target="_blank" class="icon-btn">
+                    <i class="material-icons">gesture</i> Slither.io
                 </a>
-                <a href="https://www.y8.com" target="_blank" class="game-card">
-                    <span class="icon">🎮</span> Y8 Games
+                <a href="https://www.y8.com" target="_blank" class="icon-btn">
+                    <i class="material-icons">history_edu</i> Y8 Classic
                 </a>
-                <a href="https://poki.com/en/g/temple-run-2" target="_blank" class="game-card">
-                    <span class="icon">🗿</span> Temple Run 2
+                <a href="https://poki.com/en/g/temple-run-2" target="_blank" class="icon-btn">
+                    <i class="material-icons">landscape</i> Temple Run
                 </a>
             </div>
         </div>
@@ -221,8 +209,8 @@
 </div>
 
 <nav>
-    <button onclick="showHome()">🏠</button>
-    <button onclick="openGame()">🎮</button>
+    <button onclick="showHome()"><i class="material-icons">home</i></button>
+    <button onclick="openGame()"><i class="material-icons">sports_esports</i></button>
 </nav>
 
 <script>
@@ -243,12 +231,12 @@
         try {
             let s = await navigator.mediaDevices.getUserMedia({video:true});
             document.getElementById("cam").srcObject = s;
-        } catch { alert("Access Denied!"); }
+        } catch { alert("Camera Access Denied!"); }
     }
 
     function genPass(){
-        let p = Math.random().toString(36).slice(-8).toUpperCase();
-        alert("Pass: " + p);
+        let p = Math.random().toString(36).slice(-10).toUpperCase();
+        alert("Strong Password: " + p);
     }
 
     async function ipLookup(){
@@ -257,7 +245,7 @@
             let res = await fetch(`https://ipapi.co/${ip}/json/`);
             let data = await res.json();
             alert("Location: " + data.city + ", " + data.country_name);
-        } catch { alert("Error!"); }
+        } catch { alert("Network Error!"); }
     }
 </script>
 
