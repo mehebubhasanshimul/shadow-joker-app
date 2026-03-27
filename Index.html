@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Joker App</title>
+    <style>
+        :root {
+            --neon-green: #00ffcc;
+            --dark-bg: #080808;
+            --accent-color: #00ffcc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            /* প্রফেশনাল ডার্ক গ্রিড ব্যাকগ্রাউন্ড */
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--neon-green);
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main {
+            padding: 15px;
+            padding-bottom: 80px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            padding: 18px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            background: rgba(0, 255, 204, 0.03);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            border-left: 4px solid var(--neon-green);
+            padding-left: 10px;
+        }
+
+        /* প্রফেশনাল বড় বাটন (টুলস এর জন্য) */
+        .big-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #000, #111);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        .big-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 5px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-link span {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .btn-link:hover {
+            background: rgba(0, 255, 204, 0.15);
+            transform: translateY(-3px);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid var(--neon-green);
+            color: #fff;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: #000;
+            border-top: 2px solid var(--neon-green);
+            z-index: 1000;
+        }
+
+        nav button {
+            flex: 1;
+            border: none;
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 0;
+        }
+
+        .hidden { display: none; }
+        #cam { width: 100%; border-radius: 8px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<header>🎭 SHADOW JOKER HUB</header>
+
+<div class="main">
+
+    <div id="home">
+        
+        <a href="https://cyber-team-help-all-in-one.vercel.app/" class="big-btn" target="_blank">
+            🛠️ CYBER TEAM ALL-IN-ONE TOOLS
+        </a>
+
+        <div class="card">
+            <h3>🛡️ Terminal Tools</h3>
+            <input id="ipInput" placeholder="Enter Target IP">
+            <button onclick="ipLookup()">Scan IP Information</button>
+            <button onclick="genPass()" style="margin-top:10px;">Generate Secure Pass</button>
+        </div>
+
+        <div class="card">
+            <h3>🌐 Network & Device</h3>
+            <div class="grid">
+                <button onclick="checkNet()">Net Status</button>
+                <button onclick="openCamera()">Live Camera</button>
+            </div>
+            <video id="cam" autoplay playsinline></video>
+        </div>
+
+        <div class="card">
+            <h3>💬 Contact Admin</h3>
+            <div class="grid">
+                <a href="https://t.me/shadow_joker_cyberteamhelp" class="btn-link" target="_blank">
+                    <span>📱</span> Telegram
+                </a>
+                <a href="https://wa.me/8801950178309" class="btn-link" target="_blank">
+                    <span>💬</span> WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="game" class="hidden">
+        <div class="card">
+            <h3>🎮 Professional Games</h3>
+            <div class="grid">
+                <a href="https://poki.com" class="btn-link" target="_blank">
+                    <span>🎲</span> Poki Games
+                </a>
+                <a href="https://www.crazygames.com" class="btn-link" target="_blank">
+                    <span>🔥</span> CrazyGames
+                </a>
+                <a href="https://poki.com/en/g/subway-surfers" class="btn-link" target="_blank">
+                    <span>🏃</span> Subway Surfer
+                </a>
+                <a href="https://slither.io" class="btn-link" target="_blank">
+                    <span>🐍</span> Slither.io
+                </a>
+                <a href="https://www.y8.com" class="btn-link" target="_blank">
+                    <span>🕹️</span> Y8 Classic
+                </a>
+                <a href="https://poki.com/en/g/temple-run-2" class="btn-link" target="_blank">
+                    <span>🗿</span> Temple Run 2
+                </a>
+            </div>
+            <button onclick="showHome()" style="margin-top:20px; border-color: #555; color: #555;">Back to Home</button>
+        </div>
+    </div>
+
+</div>
+
+<nav>
+    <button onclick="showHome()">🏠</button>
+    <button onclick="openGame()">🎮</button>
+</nav>
+
+<script>
+    function showHome(){
+        document.getElementById("home").classList.remove("hidden");
+        document.getElementById("game").classList.add("hidden");
+        window.scrollTo(0,0);
+    }
+    function openGame(){
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("game").classList.remove("hidden");
+        window.scrollTo(0,0);
+    }
+
+    /* টুলস ফাংশন */
+    function checkNet(){
+        alert(navigator.onLine ? "System Connected 🟢" : "System Offline 🔴");
+    }
+
+    async function openCamera(){
+        try {
+            let s = await navigator.mediaDevices.getUserMedia({video:true});
+            document.getElementById("cam").srcObject = s;
+        } catch { alert("Camera Access Denied!"); }
+    }
+
+    function genPass(){
+        let p = Math.random().toString(36).slice(-10).toUpperCase();
+        alert("Generated: " + p);
+    }
+
+    async function ipLookup(){
+        let ip = document.getElementById("ipInput").value;
+        try {
+            let res = await fetch(`https://ipapi.co/${ip}/json/`);
+            let data = await res.json();
+            alert(`IP Info:\nCity: ${data.city}\nISP: ${data.org}`);
+        } catch { alert("Error fetching data"); }
+    }
+</script>
+
+</body>
+</html>
